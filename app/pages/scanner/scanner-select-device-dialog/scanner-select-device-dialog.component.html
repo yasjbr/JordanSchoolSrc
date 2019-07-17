@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Select Device</h1>
+<div mat-dialog-content>
+
+  <p *ngIf="data?.length == 0">No Devices to display.</p>
+
+  <mat-radio-group *ngIf="data?.length > 0" [(ngModel)]="selectedDevice">
+    <mat-radio-button *ngFor="let item of data" [value]="item">{{item}}</mat-radio-button>
+  </mat-radio-group>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="selectedDevice" cdkFocusInitial>Ok</button>
+</div>

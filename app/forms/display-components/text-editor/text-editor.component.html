@@ -1,0 +1,22 @@
+ 
+
+<div class="p-2">
+  <mat-card [class]="field.cssClass" [formGroup]="group">
+    <mat-card-header>
+      <mat-card-subtitle>
+        <h2>
+          <mat-icon matSuffix>{{  field.icon }}</mat-icon>
+          {{field.label[0].label}}:
+        </h2>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <quill-editor class="form-quill-editor" [formControlName]="field.name" [placeholder]="field.label[0].label"  ></quill-editor>
+      <mat-hint>{{field.hintLabel[0].label }}</mat-hint>
+      <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+        <mat-error *ngIf="group.get(field.name).hasError(validation.name)">{{validation.message[0].label}}
+        </mat-error>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>

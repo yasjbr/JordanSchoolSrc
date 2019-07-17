@@ -1,0 +1,81 @@
+<div class="p-2">
+    <!-- fxLayout="column" fxLayoutAlign="space-evenly stretch" -->
+    <mat-card [class]="field.cssClass" [formGroup]="group">
+        <mat-card-header>
+            <mat-card-subtitle>
+                <h2>
+                    <i class="material-icons">
+                        {{field.icon}}
+                    </i>
+                    {{field.label[0].label}}:
+                </h2>
+                <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+                <input type="text" [formControlName]="field.name" style="display: none" />
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="p-2 m-top-10">
+                    <!-- [disabled]="uploading || uploadSuccessful" -->
+                <button type="button"  mat-raised-button color="primary"
+                    class="add-files-btn blocks one" (click)="addFiles()">
+                    <i class="material-icons">
+                        attach_file
+                    </i>
+                    Add Files
+                </button>
+            </div>
+            <br>
+          
+            <div class="p-2 m-top-10" *ngIf="files.size > 0">
+                <!-- mat-dialog-content fxFlex> -->
+                <!-- This is the content of the dialog, containing a list of the files to upload -->
+                <table cellspacing="0" mat-table class="mat-elevation-z8">
+                    <thead>
+                        <tr>
+                            <th style="width:35%">File Name </th>
+                            <th>Progress</th>
+                            <th style="width:5%">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let file of files">
+                            <td style="width:35%">
+                                <h4 mat-line>{{file.name}}</h4>
+                            </td>
+                            <td>
+                                <mat-progress-bar *ngIf="progress" mode="determinate"
+                                    [value]="progress[file.name].progress | async">
+                                </mat-progress-bar>
+                            </td>
+                            <td>
+                                <button type="button" mat-button (click)="removeFiles(file)" color="warn" class="m-1"
+                                    style="width:5%">
+                                    <mat-icon>clear</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="files.size == 0">
+                            <td colspan="3" class="text-center">
+                                No data
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <mat-list>
+                        <mat-list-item *ngFor="let file of files">
+                            <h4 mat-line>{{file.name}}</h4>
+                            <mat-progress-bar *ngIf="progress" mode="determinate"
+                                [value]="progress[file.name].progress | async">
+                            </mat-progress-bar>
+                        </mat-list-item>
+                    </mat-list> -->
+            </div>
+            <!-- This are the actions of the dialog, containing the primary and the cancel button-->
+            <!-- <mat-dialog-actions class="actions">
+                <button *ngIf="showCancelButton" mat-button mat-dialog-close>Cancel</button>
+                <button mat-raised-button color="primary" [disabled]="!canBeClosed"
+                    (click)="saveFiles()">{{primaryButtonText}}</button>
+            </mat-dialog-actions> -->
+        </mat-card-content>
+    </mat-card>
+</div>

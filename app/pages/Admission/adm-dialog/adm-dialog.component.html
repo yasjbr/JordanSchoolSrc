@@ -1,0 +1,178 @@
+
+<app-content-header [title]="" [hideBreadcrumb]="false" 
+[hasBgImage]="false" [class]="'pb-4'">  
+
+</app-content-header>
+<h2 mat-dialog-title>إسم ولي الامر: 
+   {{fatherName}}
+</h2>
+
+
+<form [formGroup]="formGroup" (ngSubmit)="submit()" novalidate="novalidate">
+
+<mat-dialog-content>
+ 
+<div fxLayout="column" class="p-2"> 
+    <div class="p-2"> 
+ 
+        <div class="p-2" >   
+            <mat-card>
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+  
+    
+        <mat-form-field fxFlex color="accent" appearance="outline">
+          <input matInput  formControlName="firstName"  type="text" placeholder="الاسم الاول " >
+        </mat-form-field>
+     
+        <mat-form-field fxFlex color="accent" appearance="outline">
+            <mat-select matInput formControlName="religionId" placeholder="الديانة">
+                <mat-option *ngFor="let op of religionsList" [value]="op.id">
+                  {{op.id}} | {{op.aname}}
+                  </mat-option>
+              </mat-select>
+        </mat-form-field>
+     
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label>الجنسية</mat-label>
+            <mat-select matInput formControlName="nationalityId" placeholder="الجنسية">
+              <mat-option *ngFor="let op of nationalList" [value]="op.id">
+                {{op.value}} | {{op.aname}}
+                </mat-option>
+            </mat-select>
+
+        </mat-form-field>
+            </div> 
+        
+          
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+ 
+        <mat-form-field fxFlex appearance="outline">
+            <mat-label> تاريخ الميلاد</mat-label>
+            <input matInput formControlName="birthDate"   type="text" placeholder=" تاريخ الميلاد">
+            <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+            <mat-datepicker #birthDate></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field fxFlex appearance="outline">
+              <mat-label>الجنس</mat-label>
+              <mat-select matInput formControlName="genderId" placeholder="الجنس">
+                <mat-option *ngFor="let op of genderList" [value]="op.id">
+                  {{op.value}} | {{op.aname}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>  
+          <mat-form-field fxFlex color="accent" appearance="outline">
+              <input matInput  formControlName="firstName"  type="text" placeholder="الاسم الاول " >
+            </mat-form-field>
+        </div>
+        <!--Part 2-->
+            </mat-card>
+        </div>
+        <div class="p-2" >   
+            <mat-card>
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>القسم</mat-label>
+                <mat-select matInput formControlName="sectionId" placeholder="القسم">
+                  <mat-option *ngFor="let op of sectionList" [value]="op.id">
+                    {{op.id}} | {{op.sectionName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>الصف</mat-label>
+                <mat-select matInput formControlName="classId" [(ngModel)]="classValue"
+                (selectionChange)="onClassChange()" placeholder="الصف">
+                  <mat-option *ngFor="let op of classList" [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>  
+
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>الشعبة</mat-label>
+                <mat-select matInput formControlName="classSeqId"  placeholder="الشعبة">
+                  <mat-option *ngFor="let op of classSeqList" [value]="op.id">
+                    {{op.value}} | {{op.aname}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> 
+            </div>
+            </mat-card>
+        </div>
+        <!--Card 3-->
+      
+        <div class="p-2" >   
+            <mat-card>
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="10px"> 
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>مكان الجولة الصباحية</mat-label>
+                <mat-select matInput formControlName="tourId" [(ngModel)]="tourValue"
+                (selectionChange)="onTourChange()" placeholder="الجولة الصباحية">
+                  <mat-option *ngFor="let op of tourList" [value]="op.id">
+                   {{op.tourName}} | {{op.tourFullPrice}} | {{op.tourHalfPrice}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>  
+    
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>  نوع الجولة (صباحي/مسائي)</mat-label>
+                <mat-select matInput formControlName="tourTypeId" [(ngModel)]="tourTypeValue"
+                (selectionChange)="onTourChange()"  placeholder=" نوع الجولة">
+                  <mat-option *ngFor="let op of tourTypeList" [value]="op.id">
+                   {{op.aname}} 
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>  
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>  رقم الباص</mat-label>
+                <mat-select matInput formControlName="busId" placeholder=" رقم الباص">
+                  <mat-option *ngFor="let op of busList" [value]="op.id">
+                    {{op.sidNo}} | {{op.driverName}} | {{op.morningSuper}} | {{op.evningSuper}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>  
+
+        </div>   
+        <div fxLayout fxLayout.xs="column" fxLayoutGap="10px"> 
+          
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>  سعر الجولة </mat-label>
+                <h3>
+                <input matInput formControlName="tourPrice" [(ngModel)]="tourPrice"   type="text" placeholder="سعر الجولة  ">
+              </h3>
+              </mat-form-field>
+              
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>  رسوم الصف </mat-label>
+            <h3>
+                <input matInput formControlName="classPrice" [(ngModel)]="classPrice"   type="text" placeholder=" رسوم الصف  ">
+             </h3>
+              </mat-form-field>
+              
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>   المجموع </mat-label>
+                <h2>
+                <input matInput formControlName="totalPrice" [(ngModel)]="totalPrice"   type="text" placeholder=" المجموع  ">
+                </h2>
+              </mat-form-field>
+          </div>
+            </mat-card>
+    </div>
+ 
+
+
+    </div>
+</div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    
+    <button mat-raised-button tabindex="-1"  color="warn" (click)="closeDialog()" >
+        عودة
+      </button>
+      <button [type]="submit" mat-raised-button color="primary" (click)="submit2()" >
+        تخزين
+      </button>
+</mat-dialog-actions>
+
+</form>

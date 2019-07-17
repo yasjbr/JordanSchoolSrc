@@ -1,0 +1,11 @@
+<mat-form-field class="demo-full-width" [class]="fieldClass" [formGroup]="group" appearance="outline">
+  <mat-label> {{field.label[0].label}} </mat-label>
+  <input matInput   time="true" type="Time" [formControlName]="field.name"
+    [placeholder]="field.label[0].label"   format="hh:mm a" />
+  <mat-icon matSuffix>{{  field.icon }}</mat-icon>
+  <mat-hint>{{field.hintLabel[0].label }}</mat-hint>
+  <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+    <mat-error *ngIf="group.get(field.name).hasError(validation.name)">{{validation.message[0].label}}
+    </mat-error>
+  </ng-container>
+</mat-form-field>

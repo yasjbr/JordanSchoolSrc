@@ -1,0 +1,45 @@
+button{
+  width: 46%;
+  background: #11705c;
+  margin-top: 4px;
+}
+
+.scanned-list {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-gap: 8px;
+
+  img {
+    width: 100%;
+  }
+}
+
+
+.active-scanned {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .bg {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .viewer {
+    max-width: 80vw;
+    max-height: 90vh;
+    z-index: 5;
+    margin-top: 5vh;
+    box-shadow: 0px 0px 24px -1px #00000042;
+    overflow: auto;
+  }
+}

@@ -1,0 +1,28 @@
+* {
+  text-align: center;
+}
+
+.close {
+  outline: none;
+  margin-top: -24px;
+}
+
+.title {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.instructions {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  margin-bottom: 20px;
+  grid-gap: 10%;
+  padding: 0 20%;
+
+  div {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+}

@@ -1,0 +1,28 @@
+<app-content-header [icon]="formIcon" [title]="formTitle" [desc]="formDescription" [hideBreadcrumb]="false"
+  [hasBgImage]="true" [class]="'pb-4'"></app-content-header>
+
+
+
+<div class="p-2" fxflex="100" ng-reflect-flex="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+  <mat-card class="mat-card">
+    <!-- <mat-card-header class="mat-card-header">
+      <div class="mat-card-header-text">
+        <mat-card-subtitle class="mat-card-subtitle">
+          <h2>{{ formTitle }}</h2>
+        </mat-card-subtitle>
+      </div>
+    </mat-card-header> -->
+    <mat-card-content class="mat-card-content">
+        <div class="form">
+            <dynamic-form [fields]="regConfig" (submit)="submit($event)">
+            </dynamic-form>
+            <br>
+            <br>
+            <div class="margin-top">
+              {{ form.value | json }}
+            </div>
+          </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+ 

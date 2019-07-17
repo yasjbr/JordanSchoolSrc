@@ -1,0 +1,9 @@
+<mat-form-field class="demo-full-width margin-top" [class]="fieldClass" [formGroup]="group" appearance="outline">
+    <mat-select [placeholder]="field.label[0].label" [formControlName]="field.name">
+        <mat-option *ngFor="let item of field.options" [value]="item.value">{{item.label}}</mat-option>
+    </mat-select>
+    <mat-hint>{{field.hintLabel[0].label }}</mat-hint>
+    <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+        <mat-error *ngIf="group.get(field.name).hasError(validation.name)">{{validation.message[0].label}}</mat-error>
+    </ng-container>
+</mat-form-field>

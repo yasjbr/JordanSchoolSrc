@@ -1,0 +1,65 @@
+import { Admission } from './../../Models/Admission/admission';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { regParents } from 'src/app/Models/Reg/Parents/reg-parents';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdmService {
+
+
+  private apiUrl = environment.apiBaseUrl + 'AdmStud';
+  
+  public sParentId:string;
+  public sParentName:string;
+  public sSelected:any;
+
+  dialogData: any;
+  
+constructor(private http: HttpClient) { }
+
+
+admissionList():Observable<Admission[]>{
+  return this.http.get<Admission[]>(this.apiUrl,environment.httpOptions);
+}
+
+admInsert(model: Admission):Observable<void>{
+  return this.http.post<void>(this.apiUrl,model,environment.httpOptions);
+}
+admUpdate(model: Admission, id:number):Observable<void>{
+return this.http.put<void>(`${this.apiUrl}/${id}`,model,environment.httpOptions)
+}
+admDelete(id:number):Observable<void>{
+  return this.http.delete<void>(`${this.apiUrl}/${id}`,environment.httpOptions);
+}
+getStud(id:number):Observable<Admission>{
+  return this.http.get<Admission>(`${this.apiUrl}/${id}`,environment.httpOptions);
+} 
+getByParent(id:string):Observable<Admission[]>{
+  return this.http.get<Admission[]>(`${this.apiUrl+"/Parent"}/${id}`,environment.httpOptions);
+}
+getStudParent(id:string):Observable<regParents[]>{
+  return this.http.get<regParents[]>(`${this.apiUrl+"/ParentName"}/${id}`,environment.httpOptions);
+}
+
+private messageSource = new BehaviorSubject('default message');
+currentMessage = this.messageSource.asObservable();
+changeMessage(message: string) {
+  this.messageSource.next(message);
+}
+
+private parentIdParam = new BehaviorSubject('');
+currentParentIdParam = this.parentIdParam.asObservable();
+changeParentId(parentId: string) {
+  this.parentIdParam.next(parentId);
+}
+
+addIssue (issue: regParents): void {
+  this.dialogData = issue;
+}
+
+}

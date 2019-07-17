@@ -1,0 +1,261 @@
+
+
+<app-content-header 
+[icon]="'store_mall_directory'" 
+[title]="'إضافة/تعديل طالب'" 
+[hideBreadcrumb]="false"
+[hasBgImage]="true" 
+[class]="'pb-4'">
+</app-content-header>
+
+
+
+<div fxLayout="column" class="p-2"> 
+  <div class="p-2"> 
+
+ 
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate="novalidate">
+
+       
+          <mat-card-header fxLayoutAlign="center">
+              <mat-card-subtitle>
+                <h2></h2>
+              </mat-card-subtitle>
+            </mat-card-header>
+<!--Card 1-->     
+<div class="p-2" >   
+<mat-card>        
+<mat-card-content fxLayout="column" fxLayoutAlign="center">
+    <mat-card-header fxLayoutAlign="start">                
+        <mat-card-subtitle ><h2 style="text-decoration:underline">معلومات الطالب الاساسية</h2></mat-card-subtitle>
+    </mat-card-header>
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+              
+           
+              <mat-form-field fxFlex appearance="outline">
+                  <!--<mat-label style="color: black; font-size:18px "> رقم الطالب</mat-label>-->
+                  <mat-label> رقم الطالب</mat-label>
+                <input style="color: black; font-size:18px" matInput formControlName="studNo" name="studNo"  type="text" placeholder="الرقم ">
+                <mat-error *ngIf="validator.hasErrors(name)"> 
+                  Required
+                </mat-error>
+              </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline" >
+                <mat-label>الاب</mat-label>
+              <input matInput formControlName="parentId" name="parentId"  type="text" placeholder="الاب ">
+              <mat-error *ngIf="validator.hasErrors(name)"> 
+                Required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline" >
+                <mat-label>الاسم الاول بالعربية</mat-label>
+              <input matInput formControlName="firstName"  name="firstName" type="text" placeholder="الاسم بالعربية ">
+              <mat-error *ngIf="validator.hasErrors(name)"> 
+                Required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>الاسم الاول بالانجليزية</mat-label>
+              <input matInput formControlName="firstLName"  type="text" placeholder=" الاسم بالانجليزية">
+            </mat-form-field>
+     
+               
+           
+       
+          </div>
+        </mat-card-content>
+     
+        <!--Card 1 Part2-->   
+       
+        
+        <mat-card-content fxLayout="column" fxLayoutAlign="center">
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+              
+              <mat-form-field fxFlex appearance="outline">
+                  <mat-label>الرقم الوطني</mat-label>
+                  <input matInput formControlName="idNum" name="idNum"  type="text" placeholder="الرقم الوطني">
+                </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>تاريخ الميلاد</mat-label>
+              <input matInput formControlName="birthDate"  type="text" placeholder=" تاريخ الميلاد">
+            </mat-form-field>
+
+                
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>مكان الميلاد</mat-label>
+              <input matInput formControlName="birthPlace"  type="text" placeholder=" مكان الميلاد">
+            </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>الجنس</mat-label>
+                <mat-select matInput formControlName="genderId" placeholder="الجنس">
+                  <mat-option *ngFor="let op of genderList" [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+       
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+         <!--Card 2-->
+         <div class="p-2">
+        <mat-card>   
+            <mat-card-header fxLayoutAlign="start">                
+                <mat-card-subtitle >
+                  <h2 style="text-decoration:underline ">بيانات الطالب المدرسية
+                  </h2></mat-card-subtitle>
+            </mat-card-header>    
+         <mat-card-content fxLayout="column" fxLayoutAlign="center">
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+              
+               
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label> المدرسة السابقة</mat-label>
+              <input matInput formControlName="previousSchool"  type="text" placeholder="  المدرسة السابقة">
+            </mat-form-field>
+
+                
+            
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>سنة الالتحاق</mat-label>
+                <mat-select matInput formControlName="joinYearId" placeholder="سنة الالتحاق">
+                  <mat-option *ngFor="let op of YearsList" [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+           
+              
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>فصل الالتحاق</mat-label>
+                <mat-select matInput formControlName="joinTermId" placeholder="فصل الالتحاق">
+                  <mat-option *ngFor="let op of TermsList" [value]="op.id">
+                    {{op.id}} | {{op.aname}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label> المدرسة </mat-label>
+                <input matInput formControlName="schoolId"   type="text" placeholder="المدرسة ">
+              </mat-form-field>
+       
+          </div>
+        </mat-card-content>
+
+         <!--Card 2 Part2-->   
+         <mat-card-content fxLayout="column" fxLayoutAlign="center">
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+                
+          
+                   
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label> الاقسام</mat-label>
+                <mat-select matInput formControlName="sectionId" placeholder=" الاقسام">
+                  <mat-option *ngFor="let op of sectionList" [value]="op.id">
+                    {{op.id}} | {{op.sectionName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+             
+  
+                  
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label> الصف</mat-label>
+                <input matInput formControlName="joinClassId"  type="text" placeholder="  الصف">
+              </mat-form-field>
+  
+
+              <mat-form-field fxFlex appearance="outline">
+                  <mat-label> الشعبة</mat-label>
+                  <mat-select matInput formControlName="joinClassSeqId" placeholder=" الشعبة">
+                    <mat-option *ngFor="let op of classSeqList" [value]="op.id">
+                      {{op.id}} | {{op.aname}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+              
+         
+            </div>
+          </mat-card-content>
+      </mat-card>
+    </div>
+
+     <!--Card 3-->
+     <div class="p-2">
+        <mat-card>   
+            <mat-card-header fxLayoutAlign="start">                
+                <mat-card-subtitle >
+                  <h2 style="text-decoration:underline ">  معلومات الاتصال والحالة الصحية
+                  </h2></mat-card-subtitle>
+            </mat-card-header>    
+         <mat-card-content fxLayout="column" fxLayoutAlign="center">
+          <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+              
+               
+              <mat-form-field fxFlex appearance="outline">
+                  <mat-label> موبايل الطالب</mat-label>
+                  <input matInput formControlName="studMobile"   type="text" placeholder="الموبايل ">
+                </mat-form-field>
+
+                
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label> صفحة الفيسبوك</mat-label>
+              <input matInput formControlName="studFace"  type="text" placeholder="   صفحة الفيسبوك">
+            </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>  الحالة الصحية</mat-label>
+              <input matInput formControlName="studHealthId"  type="text" placeholder="الحالة الصحية">
+            </mat-form-field>
+
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label> إسم المرض </mat-label>
+                <input matInput formControlName="diseaseName"   type="text" placeholder="إسم المرض ">
+              </mat-form-field>
+              <mat-form-field fxFlex appearance="outline">
+                  <mat-label> إسم الدواء </mat-label>
+                  <input matInput formControlName="medicamentName"   type="text" placeholder="إسم الدواء ">
+                </mat-form-field>
+          </div>
+        </mat-card-content>
+       
+        <!--Card 3 Part 2-->
+        <mat-card-content fxLayout="column" fxLayoutAlign="center">
+            <div fxLayout fxLayout.xs="column" fxLayoutGap="50px">
+                 <mat-form-field fxFlex appearance="outline">
+                    <mat-label>  ملاحظات</mat-label>
+                    <input matInput formControlName="note"   type="text" placeholder="ملاحظات ">
+                  </mat-form-field>
+                  </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+      <!--Action Card (Final Card)-->
+    <mat-card>
+        <mat-card-actions>
+          <a [routerLink]="returnUrl" mat-button>
+            عودة
+          </a>
+          <button mat-raised-button color="primary" type="submit" >
+            تخزين
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>
+
+<div>
+    <p>
+      
+      </p>
+</div>

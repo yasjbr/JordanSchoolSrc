@@ -1,0 +1,104 @@
+
+<app-content-header 
+[icon]="'store_mall_directory'" 
+[title]="'إضافة/تعديل معلومات ولي الامر'" 
+[hideBreadcrumb]="false"
+[hasBgImage]="true" 
+[class]="'pb-4'">
+</app-content-header>
+
+
+
+<div fxLayout="column" class="p-2">
+  <div class="p-2"> 
+
+<!--Card 1-->
+      <div class="p-2">
+          <mat-card>  
+            <mat-card-content fxLayout="column" fxLayoutAlign="center">
+              <div fxLayout fxLayout.xs="column" fxLayoutGap="10px">
+                    <h3>رقم ولي الامر </h3>
+                  <h3 fxFlex appearance="outline" >{{parents[0]?.id}}</h3>   
+              </div>
+                  <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
+                        <h3> الاسـم بالـعربيـــة:</h3>
+                         <h3 fxFlex appearance="Placeholder" >     
+                           {{parents[0]?.fatherName}}
+                        </h3>
+
+                    <h3> الاسم  بالانجليزية: </h3>
+                    <h3 fxFlex appearance="Placeholder">
+                        {{parents[0]?.fatherLName}}
+                    </h3>
+            </div>
+            </mat-card-content>
+          </mat-card>
+      </div>
+      <!--Card 2-->
+      <div class="p-2">
+          <mat-card>  
+            <mat-card-content fxLayout="column" fxLayoutAlign="center">
+              <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
+                    <h3>الرقم الوطني: </h3>
+                  <h3 fxFlex appearance="outline" >{{parents[0]?.idNum}}</h3>   
+                        <h3>  إسم الام:</h3>
+                         <h3 fxFlex appearance="Placeholder" >     
+                           {{parents[0]?.motherName}}
+                        </h3>
+
+                    <h3>   الديانة: </h3>
+                    <h3 fxFlex appearance="Placeholder">
+                        {{parents[0]?.religionName}}
+                    </h3>
+                    <h3>   الجنسية: </h3>
+                    <h3 fxFlex appearance="Placeholder">
+                        {{parents[0]?.nationalityName}}
+                    </h3>
+            </div>
+            </mat-card-content>
+          </mat-card>
+      </div>
+      <!--Card 3-->
+      <div class="p-2">
+          <mat-card>  
+            <mat-card-content fxLayout="column" fxLayoutAlign="center">
+              <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
+                  <mat-card-title>
+                      <h3> العنوان : </h3>
+                  </mat-card-title>
+                
+                </div>
+                
+                <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
+                    <h3>  المدينة: </h3>
+                  <h3 fxFlex appearance="outline" >{{parents[0]?.cityName}}</h3>   
+             
+                        <h3>   اللواء:</h3>
+                         <h3 fxFlex appearance="Placeholder" >     
+                           {{parents[0]?.locality1}}
+                        </h3>
+
+                    <h3>   التجمع: </h3>
+                    <h3 fxFlex appearance="Placeholder">
+                        {{parents[0]?.locality2}}
+                    </h3>
+              
+                    <h3>   الحي: </h3>
+                    <h3 fxFlex appearance="Placeholder">
+                        {{parents[0]?.address}}
+                    </h3>
+                    <h3>   الشارع: </h3>
+                    <h3 fxFlex appearance="Placeholder">
+                        {{parents[0]?.street}}
+                    </h3>
+                    <h3>   رقم العمارة: </h3>
+                    <h3 fxFlex appearance="Placeholder">
+                        {{parents[0]?.buildingNo}}
+                    </h3>
+            </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+    </div>
+    </div>
+

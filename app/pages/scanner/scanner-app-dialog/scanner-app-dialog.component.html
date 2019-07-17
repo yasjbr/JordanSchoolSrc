@@ -1,0 +1,29 @@
+<div id="web-scan-setup-dialog" class="web-scan-dialog web-scan-dialog-display"
+     style="display: block;">
+  <button class="close" title="Dismiss this dialog" (click)="onNoClick()" style="outline: none">&times;</button>
+
+  <h1 class="title">Please complete one-time setup</h1>
+  <div class="instructions">
+    <div class="download">
+      <h3>
+        <a href="/" target="_blank" text="Download">Download</a>
+      </h3>
+      <p>
+        <a class="underline" href="/" target="_blank"
+           title="One time setup executable" text="Download the setup">Download the scan app setup</a>
+      </p>
+    </div>
+    <div class="run">
+      <h3 text="Run">Run</h3>
+      <p text="Run the setup, follow the instruction;">Run the setup, follow the instruction;</p>
+    </div>
+  </div>
+  <p>
+    <span text="Already have the scan app set up? ">Already have the scan app set up? </span>
+    <a class="underline"
+       href="medcorscanner://startScanner"
+       target="_top"
+       text="Click here to enable it.">
+      Click here to enable it.</a>
+  </p>
+</div>

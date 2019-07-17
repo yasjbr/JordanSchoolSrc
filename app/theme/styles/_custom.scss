@@ -1,0 +1,98 @@
+.colflex {
+  display: flex;
+  flex-direction: column;
+}
+/* Row Gap */
+.colflex > *:not(:last-child) {
+  margin-bottom: 32px;
+}
+
+.rowflex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+/* Column Gap */
+.rowflex > * {
+  box-sizing: border-box;
+}
+.rowflex > *:not(:last-child) {
+  margin-right: 32px;
+}
+/* Item sizing */
+.rowflexItem-3 {
+  flex: 0 1 calc(33.3% - 32px);
+  margin-bottom: 15px;
+}
+.rowflexItem-2 {
+  flex: 0 1 calc(50% - 32px);
+  margin-bottom: 15px;
+}
+.rowflexItem-1 {
+  flex: 0 1 calc(100% - 32px);
+  margin-bottom: 15px;
+}
+.add-files-btn {
+  float: left;
+}
+
+:host {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.actions {
+  justify-content: flex-end;
+}
+
+.container {
+  height: 100%;
+}
+/*Icon position */
+.custom-icon-position-tp-6 {
+  top: 6px;
+  position: relative;
+}
+
+/* table style */
+table {
+  width: 100%;
+}
+.m-top-10 {
+  margin-top: 10px;
+}
+
+/*text style   */
+.text-center {
+  text-align: center;
+}
+.ql-container {
+  height: 180px;
+}
+/* medium size viewport */
+@media screen and (max-width: 959px) {
+  /* Column Gap */
+  .rowflex > *:not(:last-child) {
+    margin-right: 32px;
+  }
+  /* Item sizing */
+  .rowflexItem {
+    flex: 0 1 calc(50% - 32px);
+    margin-bottom: 15px;
+  }
+}
+/* small size viewport */
+@media screen and (max-width: 599px) {
+  .rowflex {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .rowflex > *:not(:last-child) {
+    margin-right: unset;
+    margin-bottom: 32px;
+  }
+}
