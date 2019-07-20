@@ -4,10 +4,16 @@ import { RegParentService } from "./../../Reg/parents/reg-parent.service";
 import { Admission } from "./../../../Models/Admission/admission";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { AdmService } from "../adm.service";
-import { MatPaginator, MatTableDataSource, MatDialog, MatDialogConfig } from "@angular/material";
+import {
+  MatPaginator,
+  MatTableDataSource,
+  MatDialog,
+  MatDialogConfig
+} from "@angular/material";
 import { analytics } from "../../dashboard/dashboard.data";
 import { FormControl } from "@angular/forms";
 import { ReplaySubject, Subject } from "rxjs";
+import { log } from "util";
 
 @Component({
   selector: "app-adm-index",
@@ -32,20 +38,28 @@ export class AdmIndexComponent implements OnInit {
   fatherTel: any;
   fatherMobile: any;
   motherMobile: any;
-  showSaveButton: boolean=false;
+  showSaveButton: boolean = false;
   showForm: boolean = false;
+  classPrice: number;
+  totalPrice: number;
+  currentYear: any;
+  currentYearId: number;
 
   cols = [
     { field: "id", header: "#" },
     { field: "firstName", header: "إسم الطالب " },
-    { field: "fatherFirstName", header: "إسم الاب  " },
-    { field: "fatherSecondName", header: "إسم الجد  " },
-    { field: "fatherFamilyName", header: "  العائلة" },
-    // {field:"schoolId", header:"المدرسة"},
-    // {field:"sectionId",header:"القسم"},
-    { field: "classId", header: "الصف" },
-    { field: "classSeqId", header: "الشعبة" },
-    { field: "parentId", header: "الاب" }
+    { field: "birthDate", header: "تاريخ الميلاد  " , type:"date"},
+    { field: "genderName", header: "الجنس  " },
+    { field: "className", header: "  الصف" },
+    { field: "classPrice", header: "سعر الصف" },
+    { field: "classSeqName", header: "الشعبة" },
+    // { field: "descountType", header: "نوع الخصم" },
+    //{ field: "descountValue", header: "قيمة الخصم" },
+    { field: "tourName", header: "مشترك بالباص - المنطقة" },
+    { field: "tourTypeName", header: " نوع إشتراك الباص" },
+    { field: "tourPrice", header: "مبلغ إشتراك الباص" },
+    { field: "totalPrice", header: "المبلغ المطلوب" },
+    {field:"yearId",header:"yearId", type:"hidden"}
   ];
   dataSource: MatTableDataSource<Admission> = new MatTableDataSource<
     Admission
@@ -62,6 +76,9 @@ export class AdmIndexComponent implements OnInit {
     private parentService: RegParentService,
     public dialog: MatDialog
   ) {
+    this.getCurrentYear();
+    this.currentYear = this.service.sCurrentYear;
+    console.log(  this.currentYear);
     //this.getAdmList();
     this.getParentList();
     // this.selected=this.service.sSelected;
@@ -72,7 +89,8 @@ export class AdmIndexComponent implements OnInit {
   ngOnInit() {
     // this.dataSource.filterPredicate = (data: Admission, filter: string) => {
     // return data.parentId == +filter;  };
-
+    this.getCurrentYear();
+    //this.currentYear = this.service.sCurrentYear;
     this.service.currentMessage.subscribe(message => (this.message = message));
     this.service.currentParentIdParam.subscribe(p => (this.parentId = p));
   }
@@ -88,11 +106,14 @@ export class AdmIndexComponent implements OnInit {
       .subscribe(res => (this.parentList = res));
   }
 
-  pp: string;
-  arr: any[];
+  getCurrentYear() {
+    return this.service
+      .getCurrentYear()
+      .subscribe(res => (this.service.sCurrentYear = res.aName,this.currentYear= res.aName,
+        this.service.sCurrentYearId = res.id, this.currentYearId=res.id));
+  }
 
-
-   onParentChanged(filterValue: string) {
+  onParentChanged(filterValue: string) {
     this.selected = filterValue;
     this.service.sSelected = filterValue;
     this.parentId = filterValue;
@@ -126,7 +147,7 @@ export class AdmIndexComponent implements OnInit {
       this.motherMobile = res[0].motherMobile;
 
       this.service.sParentName = this.fatherName;
-      this.showSaveButton=true;
+      this.showSaveButton = true;
 
       // console.log( this.parentId);
       // console.log(res);
@@ -135,24 +156,37 @@ export class AdmIndexComponent implements OnInit {
 
   //Dialog
 
-  
   addNewStudent() {
-
     const dialogConfig = new MatDialogConfig();
 
     //dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-  //   dialogConfig.position = {
-  //     'top': '0',
-  //     left: '0'
-  // };
-  dialogConfig.direction ="rtl";
-  const dialogRef =  this.dialog.open(AdmDialogComponent, dialogConfig);  
-  dialogRef.afterClosed().subscribe(res => {
-      this.onParentChanged(res.parentId);
-});
+    //   dialogConfig.position = {
+    //     'top': '0',
+    //     left: '0'
+    // };
+    dialogConfig.direction = "rtl";
+    dialogConfig.data = { id: 0, classPrice:0, totalPrice:0 };
+    const dialogRef = this.dialog.open(AdmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(res => {
+      res != null ? this.onParentChanged(res.parentId) : "";
+    });
   }
 
+  updateStud(id,classPrice,totalPrice,yearId: number,elementYear: number) {
+
+    console.log("yearId=" + yearId + "  elementYear=" + elementYear);
+    if (yearId != elementYear) return;
+
+     const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.direction = "rtl";
+    dialogConfig.data = { id: id, classPrice:classPrice, totalPrice:totalPrice };
+    const dialogRef = this.dialog.open(AdmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(res => {
+      res != null ? this.onParentChanged(res.parentId) : "";
+    });
+  }
   addNewStudent2() {
     const dialogRef = this.dialog.open(AdmDialogComponent, {
       //data: {issue: issue }
@@ -167,11 +201,13 @@ export class AdmIndexComponent implements OnInit {
       }
     });
   }
-  displayForm(show:boolean){
-  this.showForm= show;
+  displayForm(show: boolean) {
+    this.showForm = show;
   }
 
-  onSave(data:Admission){
-    this.onParentChanged(""+data.parentId);
+  onSave(data: Admission) {
+    this.onParentChanged("" + data.parentId);
   }
+
+  //Update
 }

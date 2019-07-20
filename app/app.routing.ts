@@ -8,11 +8,15 @@ import { NotFoundComponent } from './pages/errors/not-found/not-found.component'
 import { ErrorComponent } from './pages/errors/error/error.component';
 import { FormExampleComponent } from './pages/form-example/form-example.component';
 
+
+
 export const routes: Routes = [
+    { path: '', loadChildren: './pages/login/login.module#LoginModule' },
     { 
         path: '', 
         component: PagesComponent, children: [
-            { path: '', loadChildren: './pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
+            { path: '', loadChildren: './pages/login/login.module#LoginModule', data: { breadcrumb: 'Login' } },
+            { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' } },
             { path: 'users', loadChildren: './pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
             { path: 'dynamic-menu', loadChildren: './pages/dynamic-menu/dynamic-menu.module#DynamicMenuModule', data: { breadcrumb: 'Dynamic Menu' }  },          
             { path: 'ui', loadChildren: './pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },

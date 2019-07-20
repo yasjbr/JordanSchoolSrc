@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 import { regParents } from 'src/app/Models/Reg/Parents/reg-parents';
+import { AcdimicYears } from 'src/app/Models/addLookups/years/AcdimicYears';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,16 @@ export class AdmService {
 
 
   private apiUrl = environment.apiBaseUrl + 'AdmStud';
+  private CurrentYearApiUrl = environment.apiBaseUrl + 'LkpYear';
   
   public sParentId:string;
   public sParentName:string;
   public sSelected:any;
+
+  
+  //CurrentYear
+  public sCurrentYearId: any;
+  public sCurrentYear: any;
 
   dialogData: any;
   
@@ -27,10 +34,14 @@ admissionList():Observable<Admission[]>{
   return this.http.get<Admission[]>(this.apiUrl,environment.httpOptions);
 }
 
+// getRegChildrens(id:string):Observable<regParents[]>{
+//   return this.http.get<regParents[]>(`${this.apiUrl+"/RegChildrens"}/${id}`,environment.httpOptions);
+// }
+
 admInsert(model: Admission):Observable<void>{
   return this.http.post<void>(this.apiUrl,model,environment.httpOptions);
 }
-admUpdate(model: Admission, id:number):Observable<void>{
+admUpdate(id:number,model: Admission):Observable<void>{
 return this.http.put<void>(`${this.apiUrl}/${id}`,model,environment.httpOptions)
 }
 admDelete(id:number):Observable<void>{
@@ -40,11 +51,15 @@ getStud(id:number):Observable<Admission>{
   return this.http.get<Admission>(`${this.apiUrl}/${id}`,environment.httpOptions);
 } 
 getByParent(id:string):Observable<Admission[]>{
-  return this.http.get<Admission[]>(`${this.apiUrl+"/Parent"}/${id}`,environment.httpOptions);
+  return this.http.get<Admission[]>(`${this.apiUrl+"/RegChildrens"}/${id}`,environment.httpOptions);
 }
 getStudParent(id:string):Observable<regParents[]>{
   return this.http.get<regParents[]>(`${this.apiUrl+"/ParentName"}/${id}`,environment.httpOptions);
 }
+getCurrentYear():Observable<AcdimicYears>{
+  return this.http.get<AcdimicYears>(`${this.CurrentYearApiUrl+"/CurrentYear"}`,environment.httpOptions);
+}
+
 
 private messageSource = new BehaviorSubject('default message');
 currentMessage = this.messageSource.asObservable();

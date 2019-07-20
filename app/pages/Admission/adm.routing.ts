@@ -7,7 +7,8 @@ export const admRoutes: Routes = [
   children:[
     {path:'', redirectTo:'index'},
     {path:'index', component:AdmIndexComponent},
-    {path:'add',component:AdmFormComponent}
+    { path: 'add', component: AdmFormComponent },
+    {path:'edit/:id', component: AdmFormComponent}
     
   ]
  },
