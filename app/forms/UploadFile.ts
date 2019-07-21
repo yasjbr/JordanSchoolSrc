@@ -1,4 +1,4 @@
 interface UploadFile extends File {
-    isUploaded: boolean;
+    isUploaded: boolean; 
     serverFileName:string;
 }
